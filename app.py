@@ -419,7 +419,7 @@ def detect_gestures():
 
         if result.multi_hand_landmarks:
             for hand_landmarks in result.multi_hand_landmarks:
-                mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+                
 
                 if mode == "draw" :
                   print(" i am in mode draw ")
@@ -449,12 +449,7 @@ def detect_gestures():
                   if fingers >= 4:
                     socketio.emit('gesture', {'type': 'scroll', 'dir': 'right'})
                   elif fingers <= 1:
-                    socketio.emit('gesture', {'type': 'scroll', 'dir': 'left'})   
-
-        cv2.imshow(window_name, frame)
-
-        if cv2.waitKey(1) & 0xFF == 27:  # ESC key to exit
-            break
+                    socketio.emit('gesture', {'type': 'scroll', 'dir': 'left'})  
 
         socketio.sleep(0.05)
 
