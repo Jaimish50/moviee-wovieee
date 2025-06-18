@@ -469,3 +469,6 @@ def index():
 
 socketio.start_background_task(detect_gestures)
 
+@app.route('/')
+def index():
+    return "Gesture server is running 🔥"
