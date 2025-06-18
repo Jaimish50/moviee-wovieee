@@ -1,0 +1,10 @@
+# render.yaml
+services:
+  - type: web
+    name: flask-backend
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn app:app --worker-class eventlet -w 1
+    envVars:
+      - key: FLASK_ENV
+        value: production
