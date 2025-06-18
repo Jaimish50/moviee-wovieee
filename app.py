@@ -1,5 +1,5 @@
-import eventlet
-eventlet.monkey_patch()
+# import eventlet
+# eventlet.monkey_patch()
 
 from flask_socketio import SocketIO, emit, join_room
 
@@ -21,7 +21,7 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)  # Enable CORS
 
-socketio = SocketIO(app,async_mode='eventlet', cors_allowed_origins="*")
+socketio = SocketIO(app,async_mode='gebvent', cors_allowed_origins="*")
 
 # Replace 'YOUR_TMDB_API_KEY' with your actual TMDB API key
 API_KEY = os.getenv("TMDB_API_KEY")
