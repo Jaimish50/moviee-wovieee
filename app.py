@@ -467,7 +467,5 @@ def index():
     socketio.emit('gesture',{"type": "test"})
     return "Gesture server running"
 
+socketio.start_background_task(detect_gestures)
 
-if __name__ == '__main__':
-    socketio.start_background_task(detect_gestures)
-    socketio.run(app, debug=True, host='127.0.0.1', port=5000, use_reloader=False)
