@@ -8,3 +8,6 @@ services:
     envVars:
       - key: FLASK_ENV
         value: production
+    build:
+      environment:
+        PYTHON_VERSION: 3.10.13
