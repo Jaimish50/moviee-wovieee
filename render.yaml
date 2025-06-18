@@ -3,7 +3,7 @@ services:
   - type: web
     name: flask-backend
     env: python
-    buildCommand: ""
+    buildCommand: ./build.sh
     startCommand: gunicorn app:app --worker-class eventlet -w 1
     envVars:
       - key: FLASK_ENV
