@@ -4,7 +4,7 @@ services:
     name: flask-backend
     env: python
     buildCommand: ./build.sh
-    startCommand: gunicorn app:app --worker-class eventlet -w 1
+    startCommand: gunicorn -k eventlet -w 1 app:app
     envVars:
       - key: FLASK_ENV
         value: production
