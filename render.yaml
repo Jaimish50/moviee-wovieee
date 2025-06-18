@@ -10,4 +10,4 @@ services:
         value: production
     build:
       environment:
-        PYTHON_VERSION: 3.10.13
+        PYTHON_VERSION: 3.9.18
