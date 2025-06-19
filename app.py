@@ -192,7 +192,7 @@ def search_movie(media_type,id):
         "runtime": details.get("runtime") or average_run_time,
         "tagline": details["tagline"],
         "vote_count": details["vote_count"],
-        "release_date": details["release_date"] or f'{details["first_air_date"]} to {details["last_air_date"]}' or "",
+        "release_date": details.get("release_date") or f'{details.get("first_air_date", "")} to {details.get("last_air_date", "")}',
         "status": details["status"],
         "story": details["overview"],
         "language": details["original_language"],
@@ -468,5 +468,5 @@ def get_movies_by_filter():
 #     return "Gesture server running"
 
 # # socketio.start_background_task(detect_gestures)
-# if __name__ == '__main__':
-#     app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)

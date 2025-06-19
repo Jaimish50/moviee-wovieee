@@ -19,12 +19,12 @@ export default function MoviePage() {
     const [story,setStory] = useState("");
     const [similar,setSimilar] = useState([]);
     const [rec,setRec] = useState([]);
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
-        const backendURL = process.env.REACT_APP_BACKEND_URL;
         const fetchMovieInfo = async () => {
             try {
-                const response = await axios.get(`${backendURL}/${media_type}/${id}`);
+                const response = await axios.get(`${backendURL}/search/${media_type}/${id}`);
                 setMovieInfo(response.data);
                 console.log(response.data);
                 setGenres(response.data.genres);
@@ -48,7 +48,7 @@ export default function MoviePage() {
 
     return (
         <Container>
-            <Navbar isOn={isOn}/>
+            <Navbar curr2="home" isOn={isOn}/>
             <div className="group">
             <Movie id={id} media_type={media_type} movieInfo={movieInfo} genres={genres} casts={casts} directors={directors} writers={writers} reviews={reviews} videos={videos} story={story} isOn={isOn} setIsOn={setIsOn}/>
             <RecommendationBar similar={similar} rec={rec} media_type={movieInfo.media_type} isAnime={movieInfo.isAnime}/>
@@ -56,7 +56,6 @@ export default function MoviePage() {
             
         </Container>
     );
-    
 }
 
 const Container = styled.div`

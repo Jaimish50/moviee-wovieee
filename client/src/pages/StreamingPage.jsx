@@ -23,7 +23,7 @@ export default function StreamingPage(){
     useEffect(() => {
         const fetchMovieInfo = async () => {
             try {
-                const response = await axios.get(`${backendURL}/${media_type}/${id}`);
+                const response = await axios.get(`${backendURL}/search/${media_type}/${id}`);
                 setMovieInfo(response.data);
                 setGenres(response.data.genres);
                 
