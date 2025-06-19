@@ -26,6 +26,10 @@ socketio = SocketIO(app,async_mode='gevent', cors_allowed_origins="*")
 # Replace 'YOUR_TMDB_API_KEY' with your actual TMDB API key
 API_KEY = os.getenv("TMDB_API_KEY")
 
+@app.route("/test")
+def test():
+   return "render motyherfucker"
+
 @app.route("/<media_type>/<category>",methods=['GET'])
 def get_tmdb_data(media_type, category):
    base_url = 'https://api.themoviedb.org/3'
