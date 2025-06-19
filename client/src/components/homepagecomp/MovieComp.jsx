@@ -11,9 +11,8 @@ export default function MovieComp({ trendyMovies, topMovies, newMovies, ac }) {
   const movieSliderRef = useRef(null);
   const topMovieSliderRef = useRef(null);
   const [curr, setCurr] = useState("movie");
-  const [disable1, setDisable1] = useState(true);
-  const [disable2, setDisable2] = useState(true);
-  debugger
+  // const [disable1, setDisable1] = useState(true);
+  // const [disable2, setDisable2] = useState(true);
 
   // const [disableCamera, setDisableCamera] = useState(true);
  
@@ -209,22 +208,22 @@ export default function MovieComp({ trendyMovies, topMovies, newMovies, ac }) {
           {ac === 0 && <h2>Top Movie</h2>}
           {ac === 1 && <h2>Top Shows</h2>}
           {ac === 2 && <h2>Top Anime</h2>}
-          <div
+          {/* <div
             className={`disable-button ${!disable2 ? "gesture-activated" : ""}`}
             onClick={() => setDisable2((prev) => !prev)}
           >
             Gesture
-          </div>
+          </div> */}
         </div>
         <SliderContainer>
-          <GestureControl
+          {/* <GestureControl
             key={`${disable2} ${disable1}`}
             onSwipe={(direction) => {
               
               if (!disable2) scrollTopMovie(direction);
               
             }}
-          />
+          /> */}
           <Button onClick={() => scrollTopMovie("left")}>
             <>
               <img

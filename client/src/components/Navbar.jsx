@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ChevronUp, ChevronDown } from "lucide-react";
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import socket from './homepagecomp/Socket';
+// import socket from './homepagecomp/Socket';
 
 export default function PolishedNavbar ({ curr2, isOn }) {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function PolishedNavbar ({ curr2, isOn }) {
   const [isGeneralOpen, setIsGeneralOpen] = useState(true);
   const [hoveredItem, setHoveredItem] = useState(null);
 
-  const [disableCamera, setDisableCamera] = useState(true);
+  // const [disableCamera, setDisableCamera] = useState(true);
 
   if(curr2 === undefined){
     curr2 = "";
@@ -60,24 +60,24 @@ export default function PolishedNavbar ({ curr2, isOn }) {
     </button>
   );
 
-  useEffect(() => {
-      if (!socket.connected) {
-        socket.connect();
-      }
-      console.log("message disable in movie comp ", disableCamera);
-      if(socket.connected){
-        socket.emit("disable", { msg: disableCamera });
-      }else{
-        socket.once("connect", () => {
-          console.log("Sending disable in movie comp : ", disableCamera);
-          socket.emit("disable", { msg: disableCamera });
-      });
-      } 
-    },[disableCamera]);
+  // useEffect(() => {
+  //     if (!socket.connected) {
+  //       socket.connect();
+  //     }
+  //     console.log("message disable in movie comp ", disableCamera);
+  //     if(socket.connected){
+  //       socket.emit("disable", { msg: disableCamera });
+  //     }else{
+  //       socket.once("connect", () => {
+  //         console.log("Sending disable in movie comp : ", disableCamera);
+  //         socket.emit("disable", { msg: disableCamera });
+  //     });
+  //     } 
+  //   },[disableCamera]);
 
-    const handleDisableCamera = () => {
-      setDisableCamera((prev) => !prev);
-    };
+    // const handleDisableCamera = () => {
+    //   setDisableCamera((prev) => !prev);
+    // };
   
 
 return (
@@ -134,9 +134,9 @@ return (
         </div>
       </nav>
 
-      <div className="disable-camera" onClick={handleDisableCamera}>
+      {/* <div className="disable-camera" onClick={handleDisableCamera}>
           Disable Camera
-        </div>
+        </div> */}
     </div>
   </Container> 
 </>

@@ -467,3 +467,5 @@ def get_movies_by_filter():
 #     return "Gesture server running"
 
 # socketio.start_background_task(detect_gestures)
+if __name__ == '__main__':
+    app.run(debug=True)

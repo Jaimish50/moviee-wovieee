@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import styled from "styled-components";
-import MovieComp from './MovieComp';
+import MovieComp from './MovieComp.jsx';
 import axios from 'axios';
 
 export default function Home({isOn, setIsOn}){
