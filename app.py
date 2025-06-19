@@ -1,6 +1,7 @@
 # import eventlet
 # eventlet.monkey_patch()
-
+from gevent import monkey
+monkey.patch_all()  # MUST BE FIRST
 from flask_socketio import SocketIO, emit, join_room
 
 from flask import Flask, jsonify, request
