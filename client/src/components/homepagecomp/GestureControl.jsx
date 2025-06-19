@@ -127,29 +127,29 @@
 
 
 
-import { useEffect, useRef } from "react";
-import { io } from "socket.io-client";
-import socket from "./Socket";
+// import { useEffect, useRef } from "react";
+// import { io } from "socket.io-client";
+// import socket from "./Socket";
 
-export default function GestureControl({ onSwipe }) {
-  useEffect(() => {
-    if (!socket.connected) {
-      socket.connect();
-    }
+// export default function GestureControl({ onSwipe }) {
+//   useEffect(() => {
+//     if (!socket.connected) {
+//       socket.connect();
+//     }
 
-    socket.on("connect", () => {
+//     socket.on("connect", () => {
      
-    });
+//     });
 
-    socket.on("gesture", (data) => {
+//     socket.on("gesture", (data) => {
       
-      onSwipe(data.dir);
-    });
+//       onSwipe(data.dir);
+//     });
 
-    return () => {
-      socket.off("gesture"); // remove only specific listener
-    };
-  }, []);
+//     return () => {
+//       socket.off("gesture"); // remove only specific listener
+//     };
+//   }, []);
 
-  return null;
-}
+//   return null;
+// }

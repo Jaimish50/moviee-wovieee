@@ -129,23 +129,23 @@ export default function MovieComp({ trendyMovies, topMovies, newMovies, ac }) {
           {ac === 0 && <h2>Trending Movie</h2>}
           {ac === 1 && <h2>Trending Shows</h2>}
           {ac === 2 && <h2>Trending Anime</h2>}
-          <div
+          {/* <div
             className={`disable-button ${!disable1 ? "gesture-activated" : ""}`}
             onClick={() => setDisable1((prev) => !prev)}
           >
             Gesture
-          </div>
+          </div> */}
         </div>
 
         <SliderContainer>
-          <GestureControl
+          {/* <GestureControl
             key={`${disable2} ${disable1}`}
             onSwipe={(direction) => {
               
               if (!disable1) scrollMovie(direction);
               
             }}
-          />
+          /> */}
           <Button onClick={() => scrollMovie("left", -300)}>
             <>
               <img

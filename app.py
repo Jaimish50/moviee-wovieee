@@ -326,140 +326,140 @@ def get_movies_by_filter():
    DATA["data"] = films
    return jsonify(DATA)
 
-mp_hands = mp.solutions.hands
-mp_drawing = mp.solutions.drawing_utils
+# mp_hands = mp.solutions.hands
+# mp_drawing = mp.solutions.drawing_utils
 
-hands = mp_hands.Hands(max_num_hands=1,
-                       min_detection_confidence=0.6,
-                       min_tracking_confidence=0.5)
+# hands = mp_hands.Hands(max_num_hands=1,
+#                        min_detection_confidence=0.6,
+#                        min_tracking_confidence=0.5)
 
-# Thread-safe flag for enabling/disabling gestures
-disable_event = Event()
-disable_event.set()  # Start with gesture detection disabled
+# # Thread-safe flag for enabling/disabling gestures
+# disable_event = Event()
+# disable_event.set()  # Start with gesture detection disabled
 
-# disable = True
+# # disable = True
 
-@socketio.on("join_room")
-def handle_join_room(data):
-   join_room(data.get("room"))
-   print("joined the room : ",data.get("room"))
+# @socketio.on("join_room")
+# def handle_join_room(data):
+#    join_room(data.get("room"))
+#    print("joined the room : ",data.get("room"))
 
-mode = "home"
+# mode = "home"
 
-@socketio.on("set_mode")
-def handle_mode(data):
-   global mode
-   mode = data.get("mode")
-   print("mode is set to : ", mode)
+# @socketio.on("set_mode")
+# def handle_mode(data):
+#    global mode
+#    mode = data.get("mode")
+#    print("mode is set to : ", mode)
 
-@socketio.on('disable')
-def handle_disable(data):
-   global disable_event
-   if not data or 'msg' not in data:
-        print("Invalid data received:", data)
-        return
-   # global disable
-   print("Disable event received with:", data)
-   print(data)
-   print(" disable variable change to : ", data['msg'])
-   if data['msg']:
-      disable_event.set()
-   else:
-      disable_event.clear()
+# @socketio.on('disable')
+# def handle_disable(data):
+#    global disable_event
+#    if not data or 'msg' not in data:
+#         print("Invalid data received:", data)
+#         return
+#    # global disable
+#    print("Disable event received with:", data)
+#    print(data)
+#    print(" disable variable change to : ", data['msg'])
+#    if data['msg']:
+#       disable_event.set()
+#    else:
+#       disable_event.clear()
    
 
-camera_active = False
-cap = None
+# camera_active = False
+# cap = None
 
-def count_extended_fingers(hand_landmarks):
-    tips_ids = [8, 12, 16, 20]
-    pip_ids = [6, 10, 14, 18]
-    extended_fingers = 0
+# def count_extended_fingers(hand_landmarks):
+#     tips_ids = [8, 12, 16, 20]
+#     pip_ids = [6, 10, 14, 18]
+#     extended_fingers = 0
 
-    for tip_id, pip_id in zip(tips_ids, pip_ids):
-        if hand_landmarks.landmark[tip_id].y < hand_landmarks.landmark[pip_id].y:
-            extended_fingers += 1
+#     for tip_id, pip_id in zip(tips_ids, pip_ids):
+#         if hand_landmarks.landmark[tip_id].y < hand_landmarks.landmark[pip_id].y:
+#             extended_fingers += 1
 
-    return extended_fingers
+#     return extended_fingers
 
-# draw_points = []
+# # draw_points = []
 
-def detect_gestures():
-    global cap, camera_active, disable_event
+# def detect_gestures():
+#     global cap, camera_active, disable_event
 
-    window_name = "Hand Tracker"
-    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-    cv2.resizeWindow(window_name, 480, 360)
-    while True:
-        if disable_event.is_set():
-            if camera_active:
-                print("Disabling camera for privacy 👁️‍🗨️")
-                cap.release()
-                camera_active = False
-            socketio.sleep(0.1)
-            continue
+#     window_name = "Hand Tracker"
+#     cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+#     cv2.resizeWindow(window_name, 480, 360)
+#     while True:
+#         if disable_event.is_set():
+#             if camera_active:
+#                 print("Disabling camera for privacy 👁️‍🗨️")
+#                 cap.release()
+#                 camera_active = False
+#             socketio.sleep(0.1)
+#             continue
 
-        if not camera_active:
-            print("Enabling camera back again 🔥")
-            cap = cv2.VideoCapture(0)
-            if not cap.isOpened():
-                print("Camera failed to start 💀")
-                socketio.sleep(1)
-                continue
-            camera_active = True
+#         if not camera_active:
+#             print("Enabling camera back again 🔥")
+#             cap = cv2.VideoCapture(0)
+#             if not cap.isOpened():
+#                 print("Camera failed to start 💀")
+#                 socketio.sleep(1)
+#                 continue
+#             camera_active = True
         
-        ret, frame = cap.read()
-        if not ret:
-            print("Camera not working")
-            break
+#         ret, frame = cap.read()
+#         if not ret:
+#             print("Camera not working")
+#             break
 
-        frame = cv2.flip(frame, 1)
-        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        result = hands.process(rgb)
+#         frame = cv2.flip(frame, 1)
+#         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+#         result = hands.process(rgb)
 
-        if result.multi_hand_landmarks:
-            for hand_landmarks in result.multi_hand_landmarks:
+#         if result.multi_hand_landmarks:
+#             for hand_landmarks in result.multi_hand_landmarks:
                 
 
-                if mode == "draw" :
-                  print(" i am in mode draw ")
-                  thumb_tip = hand_landmarks.landmark[4]
-                  index_tip = hand_landmarks.landmark[8]
+#                 if mode == "draw" :
+#                   print(" i am in mode draw ")
+#                   thumb_tip = hand_landmarks.landmark[4]
+#                   index_tip = hand_landmarks.landmark[8]
 
-                  dist = math.sqrt(((thumb_tip.x - index_tip.x)**2) + ((thumb_tip.y - index_tip.y)**2) + ((thumb_tip.z - index_tip.z)**2))
+#                   dist = math.sqrt(((thumb_tip.x - index_tip.x)**2) + ((thumb_tip.y - index_tip.y)**2) + ((thumb_tip.z - index_tip.z)**2))
 
-                  if dist < 0.1:
-                     print("hello",dist)
-                     #socketio.emit('gesture', {'type': 'draw', 'point': (x, y), 'stop': True}, room='streaming')
-                     continue
+#                   if dist < 0.1:
+#                      print("hello",dist)
+#                      #socketio.emit('gesture', {'type': 'draw', 'point': (x, y), 'stop': True}, room='streaming')
+#                      continue
 
-                  print("index_tip", index_tip)
-                  x = int(index_tip.x * frame.shape[1])
-                  y = int(index_tip.y * frame.shape[0])
+#                   print("index_tip", index_tip)
+#                   x = int(index_tip.x * frame.shape[1])
+#                   y = int(index_tip.y * frame.shape[0])
 
-                  print("x cordinate is : ",x)
-                  print("y cordinate is : ",y)
-                  # draw_points.append((x, y))
-                  socketio.emit('gesture', {'type': 'draw', 'point': (x, y), 'stop': False}, room='streaming')
+#                   print("x cordinate is : ",x)
+#                   print("y cordinate is : ",y)
+#                   # draw_points.append((x, y))
+#                   socketio.emit('gesture', {'type': 'draw', 'point': (x, y), 'stop': False}, room='streaming')
                    
-                elif mode == "home" :
-                  # draw_points.clear()
-                  fingers = count_extended_fingers(hand_landmarks)
+#                 elif mode == "home" :
+#                   # draw_points.clear()
+#                   fingers = count_extended_fingers(hand_landmarks)
                   
-                  if fingers >= 4:
-                    socketio.emit('gesture', {'type': 'scroll', 'dir': 'right'})
-                  elif fingers <= 1:
-                    socketio.emit('gesture', {'type': 'scroll', 'dir': 'left'})  
+#                   if fingers >= 4:
+#                     socketio.emit('gesture', {'type': 'scroll', 'dir': 'right'})
+#                   elif fingers <= 1:
+#                     socketio.emit('gesture', {'type': 'scroll', 'dir': 'left'})  
 
-        socketio.sleep(0.05)
+#         socketio.sleep(0.05)
 
-    cap.release()
-    cv2.destroyAllWindows()
+#     cap.release()
+#     cv2.destroyAllWindows()
 
 
-@app.route('/gestures')
-def index():
-    socketio.emit('gesture',{"type": "test"})
-    return "Gesture server running"
+# @app.route('/gestures')
+# def index():
+#     socketio.emit('gesture',{"type": "test"})
+#     return "Gesture server running"
 
-socketio.start_background_task(detect_gestures)
+# socketio.start_background_task(detect_gestures)
