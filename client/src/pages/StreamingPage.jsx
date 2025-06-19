@@ -18,10 +18,12 @@ export default function StreamingPage(){
     const [date, setDate] = useState("not set yet");
     const [imdb, setImdb] = useState("");
 
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
+
     useEffect(() => {
         const fetchMovieInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/search/${media_type}/${id}`);
+                const response = await axios.get(`${backendURL}/${media_type}/${id}`);
                 setMovieInfo(response.data);
                 setGenres(response.data.genres);
                 

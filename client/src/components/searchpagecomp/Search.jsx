@@ -46,9 +46,11 @@ export default function Search(){
         }
     }
 
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
+
     const fetchMovie = async (val,page) => {
         try{
-        const response = await axios.get(`http://localhost:5000/keyword/${val}/${page}`); 
+        const response = await axios.get(`${backendURL}/keyword/${val}/${page}`); 
         setMovieData(response.data.data);
         setTotalPages(response.data.total_pages);
         }catch{

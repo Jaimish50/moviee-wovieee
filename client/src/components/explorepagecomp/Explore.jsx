@@ -12,9 +12,10 @@ export default function Explore({rating, length, sort, genres, ac, setAc, active
     const [totalPages, setTotalPages] = useState(1);
     
     const fetchMovieData = async () => {
+      const backendURL = process.env.REACT_APP_BACKEND_URL;
         setLoading(true);
         try {
-            const response = await axios.get("http://localhost:5000/explore", {
+            const response = await axios.get(`${backendURL}/explore`, {
                 params: {
                     sort,
                     genres: genres.join(","),

@@ -16,9 +16,9 @@ export default function Streams({
   const [isExpanded, setIsExpanded] = useState(false);
   const [ac, setAc] = useState(null);
 
-  debugger
-  const [drawing, setDrawing] = useState(false);
-  debugger
+
+  // const [drawing, setDrawing] = useState(false);
+
 
   const id = location.pathname.split("/").pop();
 

@@ -16,27 +16,28 @@ export default function Home({isOn, setIsOn}){
     const [newShows, setNewShows] = useState([]);
     const [newAnime, setNewAnime] = useState([]);
 
+    const backendURL = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
         const fetchContent = async () => {
             try {
-                const tdMovies = await axios.get("http://localhost:5000/movie/trending");
+                const tdMovies = await axios.get(`${backendURL}/movie/trending`);
                 setTrendyMovies(tdMovies.data);
 
                 const nMovies = tdMovies.data.sort((a, b) => (new Date(b.release_date) - new Date(a.release_date)) || (b.rating - a.rating));
                 const slicedMovies = nMovies.slice(0, 6);
                 setNewMovies(slicedMovies);
 
-                const tpMovies = await axios.get("http://localhost:5000/movie/top_rated");
+                const tpMovies = await axios.get(`${backendURL}/movie/top_rated`);
                 setTopMovies(tpMovies.data);
 
-                const tdShows = await axios.get("http://localhost:5000/tv/trending");
+                const tdShows = await axios.get(`${backendURL}/tv/trending`);
                 setTrendyShows(tdShows.data);
 
                 const nShows = tdShows.data.sort((a,b) => b.first_air_date - a.first_air_date && b.rating - a.rating);
                 setNewShows(nShows.slice(0,6));
 
-                const tpShows = await axios.get("http://localhost:5000/tv/top_rated");
+                const tpShows = await axios.get(`${backendURL}/tv/top_rated`);
                 setTopShows(tpShows.data);
 
                 const tdAnime = tdShows.data.filter(show =>

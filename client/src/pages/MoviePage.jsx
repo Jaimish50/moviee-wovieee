@@ -21,9 +21,10 @@ export default function MoviePage() {
     const [rec,setRec] = useState([]);
 
     useEffect(() => {
+        const backendURL = process.env.REACT_APP_BACKEND_URL;
         const fetchMovieInfo = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/search/${media_type}/${id}`);
+                const response = await axios.get(`${backendURL}/${media_type}/${id}`);
                 setMovieInfo(response.data);
                 console.log(response.data);
                 setGenres(response.data.genres);
